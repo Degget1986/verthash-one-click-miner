@@ -71,7 +71,9 @@
         "skipverthashverify":"Don't verify Verthash on startup",
         "skipverthashverify_sub":"Will skip verifying the file integrity of Verthash data on startup (not recommended)",
         "save_n_restart" : "Save & Restart",
-        "pool": "Mining pool"
+        "pool": "Mining pool",
+        "address_activation" : "Click to complete address activation",
+        "mine_verthash_paid_vtc" : "Mine: Verthash, Paid in: VTC Vertcoin"
     },
     "tabbar" : {
         "wallet" : "Wallet",

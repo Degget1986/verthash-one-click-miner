@@ -33,6 +33,10 @@ func (m *Backend) GetPoolName() string {
 	return m.pool.GetName()
 }
 
+func (m *Backend) PoolIsHashCryptos() bool {
+	return (m.pool.GetID() == 7)
+}
+
 func (m *Backend) StartMining() bool {
 	logging.Infof("Starting mining process...")
 

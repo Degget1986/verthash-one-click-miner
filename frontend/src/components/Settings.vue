@@ -14,6 +14,11 @@
           <br />
           <span class="subtext">{{ $t("settings.auto_start_sub") }}</span>
         </p>
+        <p v-if="poolID == 7" style="text-align: left">
+          <a class="link" @click="activationInformation">{{ $t('settings.address_activation') }}</a>
+          {{ $t("settings.mine_verthash_paid_vtc") }}
+          <br><a class="link" @click="copyAddress">{{ $t('mining.copy_address') }}</a>
+        </p>
       </div>
       <div class="col-settings-sub">
         <p style="text-align: left">
@@ -67,6 +72,7 @@ export default {
       testnet: false,
       poolID: -1,
       pools: [],
+      address:"",
     };
   },
   created() {
@@ -85,6 +91,9 @@ export default {
                 self.poolID = result;
                 window.backend.Backend.GetEnableIntegrated().then(result => {
                   self.enableIntegrated = result;
+                  window.backend.Backend.Address().then(result => {
+                    self.address = result;
+                  });
                 });
               });
             });
@@ -102,6 +111,30 @@ export default {
       this.showWarning = !this.showWarning;
       var self = this;
       setTimeout(() => { self.showWarning = false; }, 5000);
+    },
+    activationInformation: function() {
+      window.backend.Backend.ActivationInformation();
+    },
+    copyAddress: function() {
+      var textArea = document.createElement("textarea");
+      textArea.value = this.address;
+      // textArea.style.display = "none";
+      // Avoid scrolling to bottom
+      textArea.style.top = "0";
+      textArea.style.left = "0";
+      textArea.style.position = "fixed";
+    
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+    
+      try {
+        document.execCommand('copy');
+      } catch(e) {
+        // ignore
+      }
+    
+      document.body.removeChild(textArea);
     },
     save: function() {
       var self = this;
@@ -149,5 +182,12 @@ div.warning p {
 span.subtext {
   opacity: 0.6;
   font-size: 8pt;
+}
+a.link {
+  font-size: 14px;
+  opacity: 1;
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: left;
 }
 </style>

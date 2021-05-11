@@ -22,6 +22,23 @@ func GetPools(addr string, testnet bool) []Pool {
 		NewZergpool(addr),
 		NewSuprnova(addr),
 		NewP2Pool(addr),
+		NewZpool(addr),
+		NewZpoolEU(addr),
+	}
+}
+
+func GetDefaultPools(addr string, testnet bool) []Pool {
+	if testnet {
+		return []Pool{
+			NewP2Proxy(addr),
+		}
+	}
+	return []Pool{
+		NewHashalot(addr),
+		NewZergpool(addr),
+		NewSuprnova(addr),
+		NewP2Pool(addr),
+		NewZpool(addr),
 	}
 }
 
